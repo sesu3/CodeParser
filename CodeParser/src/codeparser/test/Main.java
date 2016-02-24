@@ -1,7 +1,9 @@
-package codeparser;
+package codeparser.test;
 
 import java.io.IOException;
 import java.util.Scanner;
+
+import codeparser.core.CodeParser;
 
 public class Main
 {

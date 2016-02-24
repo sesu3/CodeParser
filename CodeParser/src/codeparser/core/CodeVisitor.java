@@ -1,4 +1,4 @@
-package codeparser;
+package codeparser.core;
 
 import java.util.Iterator;
 

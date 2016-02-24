@@ -1,4 +1,4 @@
-package codeparser;
+package codeparser.core;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -10,10 +10,10 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-class CodeParser
+public class CodeParser
 {
 	private CompilationUnit unit;
-	
+
 	public CodeParser(String path) throws IOException
 	{
 		String sourceFile=new String(Files.readAllBytes(Paths.get(path)),StandardCharsets.UTF_8);
@@ -21,7 +21,7 @@ class CodeParser
 		parser.setSource(sourceFile.toCharArray());
 		this.unit=(CompilationUnit)parser.createAST(new NullProgressMonitor());
 	}
-	
+
 	public void extract()
 	{
 		CodeVisitor visitor=new CodeVisitor();
