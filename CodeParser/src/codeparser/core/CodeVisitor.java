@@ -1,8 +1,8 @@
 package codeparser.core;
 
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -16,9 +16,9 @@ import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.Javadoc;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
-import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
@@ -101,7 +101,7 @@ class CodeVisitor extends ASTVisitor
 					System.out.print(", "+vdf.getName());
 				}
 			}
-			System.out.print(">");
+			System.out.print("> ");
 		}
 		System.out.println();
 		System.out.println();
@@ -133,11 +133,17 @@ class CodeVisitor extends ASTVisitor
 			for(Iterator<Statement> iter=mb.statements().iterator();iter.hasNext();){
 				Statement st=iter.next();
 				if(st instanceof ExpressionStatement){
-					if(st instanceof Assignment){
-						// unimplemented
+					Expression exp=((ExpressionStatement) st).getExpression();
+					if(exp instanceof Assignment){
+						Expression leftExp=((Assignment) exp).getLeftHandSide();
+						if(leftExp instanceof VariableDeclarationExpression){
+							VariableDeclarationExpression vde=(VariableDeclarationExpression)leftExp;
+							List<VariableDeclarationFragment> vdfList=vde.fragments();
+							System.out.print("<"+vde.getType().toString()+" "+vdfList.get(0).getName().toString()+"> ");
+						}
 					}
-					if(st instanceof VariableDeclarationExpression){
-						VariableDeclarationExpression vde=(VariableDeclarationExpression)st;
+					if(exp instanceof VariableDeclarationExpression){
+						VariableDeclarationExpression vde=(VariableDeclarationExpression)exp;
 						System.out.print("<"+vde.getType().toString()+" ");
 						int cnt=0;
 						for(Iterator<VariableDeclarationFragment> iter2=vde.fragments().iterator();iter2.hasNext();cnt++){
@@ -148,6 +154,7 @@ class CodeVisitor extends ASTVisitor
 								System.out.print(", "+vdf.getName());
 							}
 						}
+						System.out.print("> ");
 					}
 				}
 				if(st instanceof VariableDeclarationStatement){
@@ -162,9 +169,11 @@ class CodeVisitor extends ASTVisitor
 							System.out.print(", "+vdf.getName());
 						}
 					}
+					System.out.print("> ");
 				}
 			}
 		}
+		System.out.println();
 		System.out.println();
 	}
 	public boolean visit(TypeDeclaration node)
