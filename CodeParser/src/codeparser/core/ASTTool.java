@@ -18,6 +18,7 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
+import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -173,5 +174,22 @@ public class ASTTool
 			list.add("volatile");
 		}
 		return list;
+	}
+	
+	public static String getSuperclassType(TypeDeclaration node)
+	{
+		Type type=node.getSuperclassType();
+		if(type!=null){
+			return type.toString();
+		}
+		return "null";
+	}
+	
+	public static String getReturnType(MethodDeclaration node)
+	{
+		if(node.isConstructor()){
+			return "null";
+		}
+		return node.getReturnType2().toString();
 	}
 }

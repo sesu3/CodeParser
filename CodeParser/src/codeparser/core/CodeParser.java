@@ -12,19 +12,13 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 
 public class CodeParser
 {
-	private CompilationUnit unit;
-
-	public CodeParser(String path) throws IOException
+	
+	public static void parsing(String sourcePath) throws IOException
 	{
-		String sourceFile=new String(Files.readAllBytes(Paths.get(path)),StandardCharsets.UTF_8);
+		String sourceFile=new String(Files.readAllBytes(Paths.get(sourcePath)),StandardCharsets.UTF_8);
 		ASTParser parser=ASTParser.newParser(AST.JLS8);
 		parser.setSource(sourceFile.toCharArray());
-		this.unit=(CompilationUnit)parser.createAST(new NullProgressMonitor());
-	}
-
-	public void extract()
-	{
-		CodeVisitor visitor=new CodeVisitor();
-		unit.accept(visitor);
+		CompilationUnit unit=(CompilationUnit)parser.createAST(new NullProgressMonitor());
+		unit.accept(new CodeVisitor());
 	}
 }

@@ -12,13 +12,11 @@ public class Main
 		try{
 			Scanner scan=new Scanner(System.in);
 			System.out.print("please type javafile path: ");
-			String path=scan.next();
-			CodeParser parser=new CodeParser(path);
-			parser.extract();
+			String sourcePath=scan.next();
+			CodeParser.parsing(sourcePath);
 			scan.close();
 		}catch(IOException e){
-			System.out.println("error:");
-			System.out.println(e.toString());
+			e.printStackTrace();
 		}
 	}
 }
