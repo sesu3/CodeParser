@@ -1,5 +1,7 @@
 package codeparser.core;
 
+import java.io.IOException;
+
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -12,7 +14,15 @@ class CodeVisitor extends ASTVisitor
 	
 	public CodeVisitor()
 	{
-		output=new OutputIndicator();
+		this.output=new OutputIndicator();
+	}
+	public CodeVisitor(String outputFilePath) throws IOException
+	{
+		this.output=new OutputIndicator(outputFilePath,false);
+	}
+	public CodeVisitor(String outputFilePath,boolean useStandard) throws IOException
+	{
+		this.output=new OutputIndicator(outputFilePath,useStandard);
 	}
 	
 	public boolean visit(TypeDeclaration node)

@@ -1,8 +1,6 @@
 package codeparser.test;
 
 import java.io.IOException;
-import java.util.Scanner;
-
 import codeparser.core.CodeParser;
 
 public class Main
@@ -10,13 +8,11 @@ public class Main
 	public static void main(String[] args)
 	{
 		try{
-			Scanner scan=new Scanner(System.in);
-			System.out.print("please type javafile path: ");
-			String sourcePath=scan.next();
-			CodeParser.parsing(sourcePath);
-			scan.close();
+			String sourcePath="/home/sho/research/repositories/eclipse-cs-git/net.sf.eclipsecs.core/src/net/sf/eclipsecs/core/CheckstylePlugin.java";
+			CodeParser.parsing(sourcePath,"/home/sho/research/testParse.txt",false);
 		}catch(IOException e){
 			e.printStackTrace();
+			System.out.println("エラー終了しました");
 		}
 	}
 }

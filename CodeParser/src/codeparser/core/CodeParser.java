@@ -21,4 +21,22 @@ public class CodeParser
 		CompilationUnit unit=(CompilationUnit)parser.createAST(new NullProgressMonitor());
 		unit.accept(new CodeVisitor());
 	}
+	
+	public static void parsing(String sourcePath,String outputFilePath) throws IOException
+	{
+		String sourceFile=new String(Files.readAllBytes(Paths.get(sourcePath)),StandardCharsets.UTF_8);
+		ASTParser parser=ASTParser.newParser(AST.JLS8);
+		parser.setSource(sourceFile.toCharArray());
+		CompilationUnit unit=(CompilationUnit)parser.createAST(new NullProgressMonitor());
+		unit.accept(new CodeVisitor(outputFilePath));
+	}
+	
+	public static void parsing(String sourcePath,String outputFilePath,boolean useStandard) throws IOException
+	{
+		String sourceFile=new String(Files.readAllBytes(Paths.get(sourcePath)),StandardCharsets.UTF_8);
+		ASTParser parser=ASTParser.newParser(AST.JLS8);
+		parser.setSource(sourceFile.toCharArray());
+		CompilationUnit unit=(CompilationUnit)parser.createAST(new NullProgressMonitor());
+		unit.accept(new CodeVisitor(outputFilePath,useStandard));
+	}
 }

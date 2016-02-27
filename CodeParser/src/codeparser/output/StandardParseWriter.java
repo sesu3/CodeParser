@@ -41,7 +41,7 @@ class StandardParseWriter implements ParseWriter
 	{
 		System.out.printf("[kind]%n%s%n",ASTTool.getKind(node));
 		System.out.printf("[name]%n%s%n",node.getName());
-		System.out.printf("[returnType]",ASTTool.getReturnType(node));
+		System.out.printf("[returnType]%n%s%n",ASTTool.getReturnType(node));
 		System.out.println("[modifier]");
 		for(Iterator<String> iter=ASTTool.getModifiers(node).iterator();iter.hasNext();){
 			System.out.println(iter.next());

@@ -1,6 +1,6 @@
 package codeparser.output;
 
-import java.io.File;
+import java.io.IOException;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -15,10 +15,10 @@ public class OutputIndicator implements ParseWriter
 		this.standard=new StandardParseWriter();
 		this.file=new NullParseWriter();
 	}
-	public OutputIndicator(File file,boolean useStandard)
+	public OutputIndicator(String filePath,boolean useStandard) throws IOException
 	{
 		this.standard=useStandard?new StandardParseWriter():new NullParseWriter();
-		this.file=new FileParseWriter();
+		this.file=new FileParseWriter(filePath);
 	}
 
 	@Override
@@ -34,6 +34,5 @@ public class OutputIndicator implements ParseWriter
 		this.standard.printDeclarationState(node);
 		this.file.printDeclarationState(node);
 	}
-	
 	
 }
