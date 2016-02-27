@@ -31,6 +31,9 @@ class StandardParseWriter implements ParseWriter
 		System.out.println("[fields]");
 		for(Iterator<Variable> iter=ASTTool.getFields(node).iterator();iter.hasNext();){
 			Variable v=iter.next();
+			for(Iterator<String> iter2=v.getModifiers().iterator();iter2.hasNext();){
+				System.out.print(iter2.next()+" ");
+			}
 			System.out.println(v.getType()+" "+v.getName());
 		}
 		System.out.println();

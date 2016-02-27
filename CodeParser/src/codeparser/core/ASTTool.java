@@ -86,9 +86,10 @@ public class ASTTool
 		for(Iterator<FieldDeclaration> iter=Arrays.asList(node.getFields()).iterator();iter.hasNext();){
 			FieldDeclaration fd=iter.next();
 			String variableType=fd.getType().toString();
+			List<String> modifiers=ASTTool.getModifiers(fd);
 			for(Iterator<VariableDeclarationFragment> iter2=fd.fragments().iterator();iter2.hasNext();){
 				VariableDeclarationFragment vdf=iter2.next();
-				list.add(new Variable(variableType,vdf.getName().toString()));
+				list.add(new Variable(modifiers,variableType,vdf.getName().toString()));
 			}
 		}
 		return list;

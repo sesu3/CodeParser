@@ -41,6 +41,9 @@ class FileParseWriter implements ParseWriter
 		this.pw.println("[fields]");
 		for(Iterator<Variable> iter=ASTTool.getFields(node).iterator();iter.hasNext();){
 			Variable v=iter.next();
+			for(Iterator<String> iter2=v.getModifiers().iterator();iter2.hasNext();){
+				this.pw.print(iter2.next()+" ");
+			}
 			this.pw.println(v.getType()+" "+v.getName());
 		}
 		this.pw.println();
