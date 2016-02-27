@@ -26,7 +26,17 @@ public class PerserDBHandler
 			Statement stmt = this.connection.createStatement();
 			stmt.execute("create database "+dbName);
 			stmt.execute("use "+dbName);
-			//initialize database
+			stmt.execute(CREATE_TABLE_FILE);
+			stmt.execute(CREATE_TABLE_TYPE);
+			stmt.execute(CREATE_TABLE_TDEXMODIFIER);
+			stmt.execute(CREATE_TABLE_IMPLEMENTS);
+			stmt.execute(CREATE_TABLE_FIELD);
+			stmt.execute(CREATE_TABLE_FDEXMODIFIER);
+			stmt.execute(CREATE_TABLE_METHOD);
+			stmt.execute(CREATE_TABLE_MDEXMODIFIER);
+			stmt.execute(CREATE_TABLE_THROWS);
+			stmt.execute(CREATE_TABLE_ARGUMENT);
+			stmt.execute(CREATE_TABLE_VARIABLE);
 			stmt.close();
 			return true;
 		} catch (SQLException e) {
@@ -58,7 +68,10 @@ public class PerserDBHandler
 	private static final String CREATE_TABLE_IMPLEMENTS=
 			"create table implements(typeId integer not null,name text not null)";
 	private static final String CREATE_TABLE_FIELD=
-			"create table field(typeId integer not null,exmod varchar(16) not null,type text not null,name text not null)";
+			"create table field(id integer primary key auto_increment,typeId integer not null,"+
+			"type text not null,name text not null)";
+	private static final String CREATE_TABLE_FDEXMODIFIER=
+			"create table fdExModifier(fieldId integer not null,keyword varchar(16) not null)";
 	private static final String CREATE_TABLE_METHOD=
 			"create table method(id integer primary key auto_increment,location text not null,"+
 			"isConstructor boolean not null,name text not null,returnType text not null,"+
@@ -74,12 +87,10 @@ public class PerserDBHandler
 
 	public static void main(String[] args)
 	{
-
 		try {
 			PerserDBHandler pdbh=new PerserDBHandler("localhost","root","6700");
 			System.out.println("ドライバのロードに成功");
 			System.out.println(pdbh.createDatabase("eclipse"));
-			
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
