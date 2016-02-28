@@ -44,7 +44,6 @@ public class CodeParser
 		parser.setCompilerOptions(options);
 		parser.setSource(sourceFile.toCharArray());
 		CompilationUnit unit=(CompilationUnit)parser.createAST(new NullProgressMonitor());
-		unit.accept(new CodeVisitor(outputFilePath,useStandard,dbh));
 		if(outputFilePath==null){
 			unit.accept(new CodeVisitor(useStandard,dbh));
 		}else{
