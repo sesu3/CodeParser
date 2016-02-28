@@ -2,7 +2,6 @@ package codeparser.output;
 
 import java.io.IOException;
 
-import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 public class OutputIndicator implements ParseWriter
@@ -23,13 +22,6 @@ public class OutputIndicator implements ParseWriter
 
 	@Override
 	public void printDeclarationState(TypeDeclaration node)
-	{
-		this.standard.printDeclarationState(node);
-		this.file.printDeclarationState(node);
-	}
-
-	@Override
-	public void printDeclarationState(MethodDeclaration node)
 	{
 		this.standard.printDeclarationState(node);
 		this.file.printDeclarationState(node);

@@ -1,5 +1,6 @@
 package codeparser.output;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -23,7 +24,7 @@ class StandardParseWriter implements ParseWriter
 			System.out.println(iter.next());
 		}
 		System.out.printf("[range]%n%d,%d%n",ASTTool.getStartLineNumber(node),ASTTool.getEndLineNumber(node));
-		System.out.printf("[parent]%n%s%n",ASTTool.getSuperclassType(node));
+		System.out.printf("[super]%n%s%n",ASTTool.getSuperclassType(node));
 		System.out.println("[implements]");
 		for(Iterator<Type> iter=node.superInterfaceTypes().iterator();iter.hasNext();){
 			System.out.println(iter.next().toString());
@@ -37,9 +38,11 @@ class StandardParseWriter implements ParseWriter
 			System.out.println(v.getType()+" "+v.getName());
 		}
 		System.out.println();
+		for(Iterator<MethodDeclaration> iter=Arrays.asList(node.getMethods()).iterator();iter.hasNext();){
+			printDeclarationState(iter.next());
+		}
 	}
 
-	@Override
 	public void printDeclarationState(MethodDeclaration node)
 	{
 		System.out.printf("[kind]%n%s%n",ASTTool.getKind(node));

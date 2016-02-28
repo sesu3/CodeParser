@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
@@ -20,7 +21,7 @@ class FileParseWriter implements ParseWriter
 
 	public FileParseWriter(String filePath) throws IOException
 	{
-		this.pw=new PrintWriter(new OutputStreamWriter(new FileOutputStream(filePath)),true);
+		this.pw=new PrintWriter(new OutputStreamWriter(new FileOutputStream(filePath,true)),true);
 	}
 
 	@Override
@@ -33,7 +34,7 @@ class FileParseWriter implements ParseWriter
 			this.pw.println(iter.next());
 		}
 		this.pw.printf("[range]%n%d,%d%n",ASTTool.getStartLineNumber(node),ASTTool.getEndLineNumber(node));
-		this.pw.printf("[parent]%n%s%n",ASTTool.getSuperclassType(node));
+		this.pw.printf("[super]%n%s%n",ASTTool.getSuperclassType(node));
 		this.pw.println("[implements]");
 		for(Iterator<Type> iter=node.superInterfaceTypes().iterator();iter.hasNext();){
 			this.pw.println(iter.next().toString());
@@ -47,9 +48,11 @@ class FileParseWriter implements ParseWriter
 			this.pw.println(v.getType()+" "+v.getName());
 		}
 		this.pw.println();
+		for(Iterator<MethodDeclaration> iter=Arrays.asList(node.getMethods()).iterator();iter.hasNext();){
+			printDeclarationState(iter.next());
+		}
 	}
 
-	@Override
 	public void printDeclarationState(MethodDeclaration node)
 	{
 		this.pw.printf("[kind]%n%s%n",ASTTool.getKind(node));
@@ -85,6 +88,7 @@ class FileParseWriter implements ParseWriter
 			super.finalize();
 		} finally {
 			if(this.pw!=null){
+				this.pw.flush();
 				this.pw.close();
 			}
 		}
