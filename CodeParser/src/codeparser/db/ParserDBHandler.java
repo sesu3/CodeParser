@@ -39,14 +39,12 @@ public class ParserDBHandler implements DBHandler
 		Statement stmt = this.connection.createStatement();
 		stmt.execute("create database "+dbName);
 		stmt.execute("use "+dbName);
+		stmt.execute(CREATE_TABLE_REVISION);
 		stmt.execute(CREATE_TABLE_FILE);
 		stmt.execute(CREATE_TABLE_TYPE);
-		stmt.execute(CREATE_TABLE_TDEXMODIFIER);
 		stmt.execute(CREATE_TABLE_IMPLEMENTS);
 		stmt.execute(CREATE_TABLE_FIELD);
-		stmt.execute(CREATE_TABLE_FDEXMODIFIER);
 		stmt.execute(CREATE_TABLE_METHOD);
-		stmt.execute(CREATE_TABLE_MDEXMODIFIER);
 		stmt.execute(CREATE_TABLE_THROWS);
 		stmt.execute(CREATE_TABLE_ARGUMENT);
 		stmt.execute(CREATE_TABLE_VARIABLE);
@@ -188,32 +186,51 @@ public class ParserDBHandler implements DBHandler
 		}
 	}
 
+	private static final String CREATE_TABLE_REVISION=
+			"create table revision("+
+					"hash varchar(64) primary key not null,"+
+					"authorName text,authorMail text,authorDate datetime,"+
+					"committerName text,committerMail text,committerDate datetime,"+
+					"message text)";
 	private static final String CREATE_TABLE_FILE=
-			"create table file(id integer primary key auto_increment,path text not null)";
+			"create table file("+
+					"id integer primary key auto_increment,hash varchar(64) not null,"+
+					"path text not null,status varchar(4) not null)";
 	private static final String CREATE_TABLE_TYPE=
-			"create table type(id integer primary key auto_increment,fileId integer not null,"+
-					"isInterface boolean not null,FQCN text not null,startLine integer not null,"+
-					"endLine integer not null,super text not null)";
-	private static final String CREATE_TABLE_TDEXMODIFIER=
-			"create table tdExModifier(typeId integer not null,keyword varchar(16) not null)";
-	private static final String CREATE_TABLE_IMPLEMENTS=
-			"create table implements(typeId integer not null,name text not null)";
-	private static final String CREATE_TABLE_FIELD=
-			"create table field(id integer primary key auto_increment,typeId integer not null,"+
-					"type text not null,name text not null)";
-	private static final String CREATE_TABLE_FDEXMODIFIER=
-			"create table fdExModifier(fieldId integer not null,keyword varchar(16) not null)";
-	private static final String CREATE_TABLE_METHOD=
-			"create table method(id integer primary key auto_increment,typeId integer not null,"+
-					"isConstructor boolean not null,name text not null,returnType text not null,"+
+			"create table type("+
+					"id integer primary key auto_increment,fileId integer not null,"+
+					"FQCN text not null,isInterface boolean not null,super text not null,"+
+					"access varchar(16) not null,static boolean not null,"+
+					"abstract boolean not null,final boolean not null,strictfp boolean not null,"+
 					"startLine integer not null,endLine integer not null)";
-	private static final String CREATE_TABLE_MDEXMODIFIER=
-			"create table mdExModifier(methodId integer not null,keyword varchar(16) not null)";
+	private static final String CREATE_TABLE_IMPLEMENTS=
+			"create table implements("+
+					"id integer primary key auto_increment,typeId integer not null,type text not null)";
+	private static final String CREATE_TABLE_FIELD=
+			"create table field("+
+					"id integer primary key auto_increment,typeId integer not null,"+
+					"type text not null,name text not null,"+
+					"accsess varchar(16) not null,final boolean not null,"+
+					"transient boolean not null,volatile boolean not null)";
+	private static final String CREATE_TABLE_METHOD=
+			"create table method("+
+					"id integer primary key auto_increment,typeId integer not null,"+
+					"name text not null,isConstructor boolean not null,returnType text not null,"+
+					"access varchar(16) not null,abstract boolean not null,"+
+					"static boolean not null,final boolean not null,synchronized boolean not null,"+
+					"native boolean not null,strictfp boolean not null,"+
+					"startLine integer not null,endLine integer not null)";
 	private static final String CREATE_TABLE_THROWS=
-			"create table throws(methodId integer not null,type text not null)";
+			"create table throws("+
+					"id integer primary key auto_increment,"+
+					"methodId integer not null,type text not null)";
 	private static final String CREATE_TABLE_ARGUMENT=
-			"create table argument(methodId integer not null,type text not null,name text not null)";
+			"create table argument("+
+					"id integer primary key auto_increment,methodId integer not null,"+
+					"type text not null,name text not null)";
 	private static final String CREATE_TABLE_VARIABLE=
-			"create table variable(methodId integer not null,type text not null,name text not null)";
+			"create table variable("+
+					"id integer primary key auto_increment,methodId integer not null,"+
+					"type text not null,name text not null)";
 
 }
