@@ -25,11 +25,11 @@ public class ParserDBHandler implements DBHandler
 	private Connection connection;
 	private int fileId=-1;
 
-	public ParserDBHandler(String server,String user,String password,String dbName)
+	public ParserDBHandler(String user,String password,String dbName)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
-		String url="jdbc:mysql://"+server;
+		String url="jdbc:mysql://localhost";
 		this.connection=DriverManager.getConnection(url, user, password);
 		this.createDatabase(dbName);
 	}
