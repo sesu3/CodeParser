@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -42,8 +43,16 @@ class FileParseWriter implements ParseWriter
 		this.pw.println("[fields]");
 		for(Iterator<Variable> iter=ASTTool.getFields(node).iterator();iter.hasNext();){
 			Variable v=iter.next();
-			for(Iterator<String> iter2=v.getModifiers().iterator();iter2.hasNext();){
-				this.pw.print(iter2.next()+" ");
+			int flags=v.getModifiers();
+			this.pw.print(ASTTool.getAccessModifier(flags)+" ");
+			if(Modifier.isFinal(flags)){
+				this.pw.print("final"+" ");
+			}
+			if(Modifier.isTransient(flags)){
+				this.pw.print("transient"+" ");
+			}
+			if(Modifier.isVolatile(flags)){
+				this.pw.print("volatile"+" ");
 			}
 			this.pw.println(v.getType()+" "+v.getName());
 		}

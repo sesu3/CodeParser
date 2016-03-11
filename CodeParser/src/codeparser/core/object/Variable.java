@@ -1,27 +1,27 @@
 package codeparser.core.object;
 
-import java.util.List;
+import org.eclipse.jdt.core.dom.Modifier;
 
 public class Variable
 {
-	private List<String> modifiers;
+	private int modifiers;
 	private String type;
 	private String name;
 	
 	public Variable(String type,String name)
 	{
-		this.modifiers=null;
+		this.modifiers=Modifier.NONE;
 		this.type=type;
 		this.name=name;
 	}
-	public Variable(List<String> modifiers,String type,String name)
+	public Variable(int modifiers,String type,String name)
 	{
 		this.modifiers=modifiers;
 		this.type=type;
 		this.name=name;
 	}
 	
-	public List<String> getModifiers()
+	public int getModifiers()
 	{
 		return this.modifiers;
 	}

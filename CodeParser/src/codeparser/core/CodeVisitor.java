@@ -20,11 +20,6 @@ class CodeVisitor extends ASTVisitor
 		this.output=new OutputIndicator(outputFilePath,useStandard);
 		this.dbh=dbh;
 	}
-	public CodeVisitor(boolean useStandard,DBHandler dbh) throws IOException
-	{
-		this.output=new OutputIndicator();
-		this.dbh=dbh;
-	}
 	
 	public boolean visit(TypeDeclaration node)
 	{

@@ -86,7 +86,7 @@ public class ASTTool
 		for(Iterator<FieldDeclaration> iter=Arrays.asList(node.getFields()).iterator();iter.hasNext();){
 			FieldDeclaration fd=iter.next();
 			String variableType=fd.getType().toString();
-			List<String> modifiers=ASTTool.getModifiers(fd);
+			int modifiers=fd.getModifiers();
 			for(Iterator<VariableDeclarationFragment> iter2=fd.fragments().iterator();iter2.hasNext();){
 				VariableDeclarationFragment vdf=iter2.next();
 				list.add(new Variable(modifiers,variableType,vdf.getName().toString()));
@@ -193,4 +193,24 @@ public class ASTTool
 		}
 		return node.getReturnType2().toString();
 	}
+	
+	public static String getAccessModifier(BodyDeclaration node)
+	{
+		int flags=node.getModifiers();
+		return getAccessModifier(flags);
+	}
+	
+	public static String getAccessModifier(int flags)
+	{
+		if(Modifier.isPrivate(flags)){
+			return "private";
+		}else if(Modifier.isProtected(flags)){
+			return "protected";
+		}else if(Modifier.isPublic(flags)){
+			return "public";
+		}else{
+			return "default";
+		}
+	}
+	
 }

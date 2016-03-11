@@ -9,15 +9,10 @@ public class OutputIndicator implements ParseWriter
 	private ParseWriter standard;
 	private ParseWriter file;
 	
-	public OutputIndicator()
-	{
-		this.standard=new StandardParseWriter();
-		this.file=new NullParseWriter();
-	}
 	public OutputIndicator(String filePath,boolean useStandard) throws IOException
 	{
 		this.standard=useStandard?new StandardParseWriter():new NullParseWriter();
-		this.file=new FileParseWriter(filePath);
+		this.file=filePath!=null?new FileParseWriter(filePath):new NullParseWriter();
 	}
 
 	@Override
