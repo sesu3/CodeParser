@@ -214,7 +214,7 @@ public class ParserDBHandler implements DBHandler
 
 	private static final String CREATE_TABLE_REVISION=
 			"create table revision("+
-					"hash varchar(64) primary key not null,"+
+					"id integer primary key auto_increment,hash varchar(64) not null,"+
 					"authorName text,authorMail text,authorDate datetime,"+
 					"committerName text,committerMail text,committerDate datetime,"+
 					"message text)";
