@@ -13,6 +13,7 @@ class Option
 		this.path=null;
 		this.outfile=null;
 		this.visible=true;
+		this.ignoreErr=false;
 		this.target=TargetType.DIRECTORY;
 		this.dbUser=null;
 		this.dbPass=null;
@@ -31,6 +32,10 @@ class Option
 	public void setVisible(boolean visible)
 	{
 		this.visible=visible;
+	}
+	public void setIgnoreErr()
+	{
+		this.ignoreErr=true;
 	}
 	public void setTargetGit()
 	{
@@ -60,6 +65,10 @@ class Option
 	{
 		return this.visible;
 	}
+	public boolean getIgnoreErr()
+	{
+		return this.ignoreErr;
+	}
 	public TargetType getTargetType()
 	{
 		return this.target;
@@ -79,6 +88,7 @@ class Option
 	private String path;
 	private String outfile;
 	private boolean visible;
+	private boolean ignoreErr;
 	private TargetType target;
 	private String dbUser;
 	private String dbPass;

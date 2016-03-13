@@ -26,6 +26,9 @@ public class ParseExecutable
 				if(input.equals("-invisible")){
 					option.setVisible(false);
 				}
+				if(input.equals("-ignore-err")){
+					option.setIgnoreErr();
+				}
 				if(input.equals("-git")){
 					option.setTargetGit();
 				}

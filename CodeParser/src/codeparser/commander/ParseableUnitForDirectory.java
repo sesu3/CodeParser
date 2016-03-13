@@ -27,7 +27,7 @@ class ParseableUnitForDirectory implements Parseable
 		dbh.register(new Revision("1",null,null,null,null,null,null,null));
 		List<String> target=getJavaFiles(new File(option.getPath()));
 		for(Iterator<String> iter=target.iterator();iter.hasNext();){
-			CodeParser.parsing(iter.next(),option.getOutfile(),option.getVisible(),dbh);
+			CodeParser.parsing(iter.next(),option.getOutfile(),option.getVisible(),option.getIgnoreErr(),dbh);
 		}
 	}
 	

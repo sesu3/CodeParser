@@ -22,16 +22,15 @@ import codeparser.db.DBHandler;
 public class CodeParser
 {
 
-	public static void parsing(String sourcePath,String outputFilePath,boolean useStandard,DBHandler dbh) throws IOException, SQLException
+	public static void parsing(String sourcePath,String outputFilePath,boolean useStandard,boolean ignoreErr,DBHandler dbh) throws IOException, SQLException
 	{
 		String sourceFile=new String(Files.readAllBytes(Paths.get(sourcePath)),StandardCharsets.UTF_8);
-		CodeParser.parsing(sourceFile.toCharArray(),sourcePath,"1","-",outputFilePath,useStandard,dbh);
+		CodeParser.parsing(sourceFile.toCharArray(),sourcePath,"1","-",outputFilePath,useStandard,ignoreErr,dbh);
 	}
 
-	public static void parsing(char[] sourceFile,String sourceFileName,String hash,String status,String outputFilePath,boolean useStandard,DBHandler dbh)
+	public static void parsing(char[] sourceFile,String sourceFileName,String hash,String status,String outputFilePath,boolean useStandard,boolean ignoreErr,DBHandler dbh)
 			throws IOException, SQLException
 	{
-		dbh.register(hash,sourceFileName,status);
 		ASTParser parser=ASTParser.newParser(AST.JLS8);
 		@SuppressWarnings("unchecked")
 		Map<String, String> options = JavaCore.getOptions();
@@ -55,9 +54,10 @@ public class CodeParser
 				System.out.println(hash+" "+sourceFileName+" で警告を検知"+" "+unit.getLineNumber(tmp.getSourceStart())+" "+unit.getLineNumber(tmp.getSourceEnd()));
 			}
 		}
-		if(errorExist){
+		if(errorExist&&ignoreErr){
 			return;
 		}
+		dbh.register(hash,sourceFileName,status);
 		unit.accept(new CodeVisitor(outputFilePath,useStandard,dbh));
 	}
 

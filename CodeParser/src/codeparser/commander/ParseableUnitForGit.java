@@ -48,7 +48,7 @@ class ParseableUnitForGit implements Parseable
 				if(line.matches("^commit,[0-9a-z]{40}+$")){
 					b=sb.toString();
 					dbh.register(new Revision(h,an,ae,at,cn,ce,ct,b));
-					parsingFilesForGit(option.getPath(),h,option.getOutfile(),option.getVisible(),dbh);
+					parsingFilesForGit(option.getPath(),h,option.getOutfile(),option.getVisible(),option.getIgnoreErr(),dbh);
 					sb=new StringBuilder("");
 					String[] hashLine=line.split(",");
 					h=hashLine[1];
@@ -64,13 +64,13 @@ class ParseableUnitForGit implements Parseable
 		}
 		b=sb.toString();
 		dbh.register(new Revision(h,an,ae,at,cn,ce,ct,b));
-		parsingFilesForGit(option.getPath(),h,option.getOutfile(),option.getVisible(),dbh);
+		parsingFilesForGit(option.getPath(),h,option.getOutfile(),option.getVisible(),option.getIgnoreErr(),dbh);
 		proc.waitFor();
 		br.close();
 		proc.destroy();
 	}
 	
-	private static void parsingFilesForGit(String dirPath,String hash,String outfile,boolean visible,DBHandler dbh)
+	private static void parsingFilesForGit(String dirPath,String hash,String outfile,boolean visible,boolean ignoreErr,DBHandler dbh)
 			throws IOException, SQLException, InterruptedException
 	{
 		ProcessBuilder pb=new ProcessBuilder("git","log","-1","--pretty=format:","--name-status",hash);
@@ -84,7 +84,7 @@ class ParseableUnitForGit implements Parseable
 			}
 			String[] tmp=line.split("\t");
 			if(isJavaFile(tmp[1])){
-				CodeParser.parsing(getJavaFileFromGit(dirPath,hash,tmp[1]),tmp[1],hash,tmp[0],outfile,visible,dbh);
+				CodeParser.parsing(getJavaFileFromGit(dirPath,hash,tmp[1]),tmp[1],hash,tmp[0],outfile,visible,ignoreErr,dbh);
 			}
 		}
 		proc.waitFor();
