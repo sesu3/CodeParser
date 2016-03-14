@@ -1,4 +1,4 @@
-package codeparser.db;
+package tmpj.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,9 +16,9 @@ import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import codeparser.core.ASTTool;
-import codeparser.core.object.Revision;
-import codeparser.core.object.Variable;
+import tmpj.core.ASTTool;
+import tmpj.core.object.Revision;
+import tmpj.core.object.Variable;
 
 public class ParserDBHandler implements DBHandler
 {

@@ -1,4 +1,4 @@
-package codeparser.output;
+package tmpj.output;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 

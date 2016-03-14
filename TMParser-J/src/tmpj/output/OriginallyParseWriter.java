@@ -1,4 +1,4 @@
-package codeparser.output;
+package tmpj.output;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,8 +13,8 @@ import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import codeparser.core.ASTTool;
-import codeparser.core.object.Variable;
+import tmpj.core.ASTTool;
+import tmpj.core.object.Variable;
 
 public class OriginallyParseWriter implements ParseWriter
 {

@@ -1,4 +1,4 @@
-package codeparser.core;
+package tmpj.core;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -17,8 +17,8 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-import codeparser.commander.Option;
-import codeparser.db.DBHandler;
+import tmpj.commander.Option;
+import tmpj.db.DBHandler;
 
 public class CodeParser
 {

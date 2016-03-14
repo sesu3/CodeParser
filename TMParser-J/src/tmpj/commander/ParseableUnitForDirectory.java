@@ -1,4 +1,4 @@
-package codeparser.commander;
+package tmpj.commander;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,9 +8,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import codeparser.core.CodeParser;
-import codeparser.core.object.Revision;
-import codeparser.db.DBHandler;
+import tmpj.core.CodeParser;
+import tmpj.core.object.Revision;
+import tmpj.db.DBHandler;
 
 class ParseableUnitForDirectory extends ParseableUnit
 {

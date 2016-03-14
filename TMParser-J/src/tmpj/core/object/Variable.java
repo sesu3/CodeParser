@@ -1,4 +1,4 @@
-package codeparser.core.object;
+package tmpj.core.object;
 
 import org.eclipse.jdt.core.dom.Modifier;
 

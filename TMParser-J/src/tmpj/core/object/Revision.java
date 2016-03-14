@@ -1,4 +1,4 @@
-package codeparser.core.object;
+package tmpj.core.object;
 
 public class Revision
 {

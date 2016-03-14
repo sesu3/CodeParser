@@ -1,4 +1,4 @@
-package codeparser.core;
+package tmpj.core;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -24,7 +24,7 @@ import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 
-import codeparser.core.object.Variable;
+import tmpj.core.object.Variable;
 
 public class ASTTool
 {

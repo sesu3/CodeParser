@@ -1,10 +1,10 @@
-package codeparser.commander;
+package tmpj.commander;
 
 import java.sql.SQLException;
 
-import codeparser.db.DBHandler;
-import codeparser.db.NullDBHandler;
-import codeparser.db.ParserDBHandler;
+import tmpj.db.DBHandler;
+import tmpj.db.NullDBHandler;
+import tmpj.db.ParserDBHandler;
 
 public class Option
 {

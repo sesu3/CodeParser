@@ -1,10 +1,10 @@
-package codeparser.db;
+package tmpj.db;
 
 import java.sql.SQLException;
 
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import codeparser.core.object.Revision;
+import tmpj.core.object.Revision;
 
 public class NullDBHandler implements DBHandler
 {

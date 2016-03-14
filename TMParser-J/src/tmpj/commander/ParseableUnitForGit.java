@@ -1,4 +1,4 @@
-package codeparser.commander;
+package tmpj.commander;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 
-import codeparser.core.CodeParser;
-import codeparser.core.object.Revision;
-import codeparser.db.DBHandler;
+import tmpj.core.CodeParser;
+import tmpj.core.object.Revision;
+import tmpj.db.DBHandler;
 
 class ParseableUnitForGit extends ParseableUnit
 {

@@ -1,4 +1,4 @@
-package codeparser.core;
+package tmpj.core;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import codeparser.db.DBHandler;
-import codeparser.output.OutputIndicator;
+import tmpj.db.DBHandler;
+import tmpj.output.OutputIndicator;
 
 
 class CodeVisitor extends ASTVisitor
