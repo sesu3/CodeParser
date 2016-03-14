@@ -6,7 +6,7 @@ import codeparser.db.DBHandler;
 import codeparser.db.NullDBHandler;
 import codeparser.db.ParserDBHandler;
 
-class Option
+public class Option
 {
 	public Option()
 	{

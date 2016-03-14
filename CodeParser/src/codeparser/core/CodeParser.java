@@ -17,25 +17,28 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+import codeparser.commander.Option;
 import codeparser.db.DBHandler;
 
 public class CodeParser
 {
 
-	public static void parsing(String sourcePath,String outputFilePath,boolean useStandard,boolean ignoreErr,DBHandler dbh) throws IOException, SQLException
+	public static void parsing(String sourcePath,Option option)
+			throws IOException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException
 	{
 		String sourceFile=new String(Files.readAllBytes(Paths.get(sourcePath)),StandardCharsets.UTF_8);
-		CodeParser.parsing(sourceFile.toCharArray(),sourcePath,"1","-",outputFilePath,useStandard,ignoreErr,dbh);
+		CodeParser.parsing(sourceFile.toCharArray(),sourcePath,"1","-",option);
 	}
 
-	public static void parsing(char[] sourceFile,String sourceFileName,String hash,String status,String outputFilePath,boolean useStandard,boolean ignoreErr,DBHandler dbh)
-			throws IOException, SQLException
+	public static void parsing(char[] sourceFile,String sourceFileName,String hash,String status,Option option)
+			throws IOException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException
 	{
+		DBHandler dbh=option.getDBHandler();
 		ASTParser parser=ASTParser.newParser(AST.JLS8);
 		@SuppressWarnings("unchecked")
-		Map<String, String> options = JavaCore.getOptions();
-		options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_8);
-		parser.setCompilerOptions(options);
+		Map<String, String> compilerOptions = JavaCore.getOptions();
+		compilerOptions.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_8);
+		parser.setCompilerOptions(compilerOptions);
 		parser.setSource(sourceFile);
 		CompilationUnit unit=(CompilationUnit)parser.createAST(new NullProgressMonitor());
 		IProblem[] ip=unit.getProblems();
@@ -54,11 +57,11 @@ public class CodeParser
 				System.out.println(hash+" "+sourceFileName+" で警告を検知"+" "+unit.getLineNumber(tmp.getSourceStart())+" "+unit.getLineNumber(tmp.getSourceEnd()));
 			}
 		}
-		if(errorExist&&ignoreErr){
+		if(errorExist&&option.getIgnoreErr()){
 			return;
 		}
 		dbh.register(hash,sourceFileName,status);
-		unit.accept(new CodeVisitor(outputFilePath,useStandard,dbh));
+		unit.accept(new CodeVisitor(option.getOutfile(),option.getVisible(),dbh));
 	}
 
 	public static void printProblem(CategorizedProblem cp)

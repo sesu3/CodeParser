@@ -49,7 +49,7 @@ public class ParseExecutable
 	
 	public void execute() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException, IOException, InterruptedException
 	{
-		Parseable p=ParseableUnitFactory.createUnit(option);
+		ParseableUnit p=ParseableUnitFactory.createUnit(option);
 		p.execute();
 	}
 

@@ -12,11 +12,11 @@ import codeparser.core.CodeParser;
 import codeparser.core.object.Revision;
 import codeparser.db.DBHandler;
 
-class ParseableUnitForDirectory implements Parseable
+class ParseableUnitForDirectory extends ParseableUnit
 {
 	public ParseableUnitForDirectory(Option option)
 	{
-		this.option=option;
+		super(option);
 	}
 
 	@Override
@@ -27,7 +27,7 @@ class ParseableUnitForDirectory implements Parseable
 		dbh.register(new Revision("1",null,null,null,null,null,null,null));
 		List<String> target=getJavaFiles(new File(option.getPath()));
 		for(Iterator<String> iter=target.iterator();iter.hasNext();){
-			CodeParser.parsing(iter.next(),option.getOutfile(),option.getVisible(),option.getIgnoreErr(),dbh);
+			CodeParser.parsing(iter.next(),option);
 		}
 	}
 	
@@ -47,27 +47,5 @@ class ParseableUnitForDirectory implements Parseable
 			return list;
 		}
 	}
-	
-	private static boolean isJavaFile(File file)
-	{
-		return isJavaFile(file.getName());
-	}
-	
-	private static boolean isJavaFile(String fileName)
-	{
-		int position=fileName.lastIndexOf(".");
-		if(position==-1){
-			return false;
-		}else{
-			String extension=fileName.substring(position);
-			if(extension.equals(".java")){
-				return true;
-			}else{
-				return false;
-			}
-		}
-	}
-	
-	private Option option;
 
 }
