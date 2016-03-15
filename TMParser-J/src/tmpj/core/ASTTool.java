@@ -137,6 +137,12 @@ public class ASTTool
 	public static List<String> getModifiers(BodyDeclaration node)
 	{
 		int flags=node.getModifiers();
+		return getModifiers(flags);
+		
+	}
+	
+	public static List<String> getModifiers(int flags)
+	{
 		List<String> list=new LinkedList<String>();
 		if(Modifier.isAbstract(flags)){
 			list.add("abstract");
