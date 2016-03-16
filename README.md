@@ -28,14 +28,38 @@ mysql-connector-java-*.jarはmysqlのサイトで入手します．その他はE
 ###オプション
 <table>
   <tr><th>オプション</th><th>引数</th><th>意味</th></tr>
-  <tr><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td></tr>
-  <tr><td></td><td></td><td></td></tr>
+  <tr><td>-outfile</td><td>結果出力先のパス</td><td>解析結果を指定したファイルに出力する</td></tr>
+  <tr><td>-visible</td><td>無し</td><td>解析結果を標準出力する（デフォルト）</td></tr>
+  <tr><td>-invisible</td><td>無し</td><td>解析結果を標準出力しない</td></tr>
+  <tr><td>-ignore-err</td><td>無し</td><td>コンパイル時にエラーが発生したファイルを無視．これを指定すると，データベース使用時に解析した対象として記録されなくなる．</td></tr>
+  <tr><td>-git</td><td>.gitディレクトリのあるディレクトリのパス</td><td>指定したディレクトリをGitリポジトリと見なして解析する．開発履歴上で追加・修正されたjavaファイルを全て解析対象とする．</td></tr>
+  <tr><td>-dbuser</td><td>データベースのユーザ名</td><td>使用するデータベースのユーザ名を指定．データベース使用時に指定する．</td></tr>
+  <tr><td>-dbpw</td><td>データベースのパスワード</td><td>使用するデータベースのパスワードを指定．データベース使用時に指定する．</td></tr>
+  <tr><td>-dbname</td><td>データベースの名前</td><td>使用するデータベースの名前を指定．データベース使用時に指定．解析時に新規作成するためまだ使用されていない名前を指定してください．</td></tr>
+</table>
+
+###出力
+一行目は解析対象の種類を表しています．
+<table>
+  <tr><td>class</td><td>クラス</td></tr>
+  <tr><td>interface</td><td>インターフェース</td></tr>
+  <tr><td>method</td><td>メソッド</td></tr>
+  <tr><td>constructor</td><td>コンストラクタ</td></tr>
+</table>
+各項目の二行目以降の意味は以下の通りです．
+<table>
+  <tr><th>項目</th><th>表示対象</th><th>意味</th></tr>
+  <tr><td>name:</td><td>class,interface,method,constructor</td><td>識別子．classとinterfaceはFQCN</td></tr>
+  <tr><td>modifier:</td><td>class,interface,method,constructor</td><td>修飾子．カンマ区切りで出力</td></tr>
+  <tr><td>range:</td><td>class,interface,method,constructor</td><td>定義範囲．開始行と終了行をカンマ区切りで表示</td></tr>
+  <tr><td>super:</td><td>class,interface</td><td>スーパークラス名</td></tr>
+  <tr><td>implements:</td><td>class,interface</td><td>実装しているインターフェース．カンマ区切りで表示</td></tr>
+  <tr><td>field:</td><td>class,interface</td><td>フィールド．カンマ区切りで出力．修飾子と型，名前をまとめて表示する．</td></tr>
+  <tr><td>returnType:</td><td>method,constructor</td><td>メソッドの戻り値の型．コンストラクタはnullと表示．</td></tr>
+  <tr><td>arguments:</td><td>method,constructor</td><td>引数．カンマ区切りで出力</td></tr>
+  <tr><td>throws:</td><td>method,constructor</td><td>スローする例外．カンマ区切りで出力</td></tr>
+  <tr><td>location:</td><td>method,constructor</td><td>定義されているクラスのFQCN．</td></tr>
+  <tr><td>localVariable:</td><td>method,constructor</td><td>このメソッド，コンストラクタと同一のスコープを持つ変数．カンマ区切りで表示．型と名前をまとめて表示．</td></tr>
 </table>
 
 ##Abstract
