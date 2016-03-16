@@ -52,7 +52,7 @@ public class OriginallyParseWriter implements ParseWriter
 			}
 		}
 		pw.println();
-		pw.print("fields:");
+		pw.print("field:");
 		for(Iterator<Variable> iter=ASTTool.getFields(node).iterator();iter.hasNext();){
 			Variable v=iter.next();
 			pw.print(ASTTool.getAccessModifier(v.getModifiers())+" ");
