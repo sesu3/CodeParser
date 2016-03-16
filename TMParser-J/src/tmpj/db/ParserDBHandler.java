@@ -64,10 +64,18 @@ public class ParserDBHandler implements DBHandler
 		pstmt.setString(1, rev.getHash());
 		pstmt.setString(2, rev.getAuthorName());
 		pstmt.setString(3, rev.getAuthorMail());
-		pstmt.setTimestamp(4,new Timestamp(Long.parseLong(rev.getAuthorDate())*1000));
+		if(rev.getAuthorDate()!=null){
+			pstmt.setTimestamp(4,new Timestamp(Long.parseLong(rev.getAuthorDate())*1000));
+		}else{
+			pstmt.setTimestamp(4,null);
+		}
 		pstmt.setString(5, rev.getCommitterName());
 		pstmt.setString(6, rev.getCommitterMail());
-		pstmt.setTimestamp(7,new Timestamp(Long.parseLong(rev.getCommitterDate())*1000));
+		if(rev.getCommitterDate()!=null){
+			pstmt.setTimestamp(7,new Timestamp(Long.parseLong(rev.getCommitterDate())*1000));
+		}else{
+			pstmt.setTimestamp(7,null);
+		}
 		pstmt.setString(8, rev.getMessage());
 		pstmt.execute();
 		pstmt.close();
