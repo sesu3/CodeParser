@@ -34,6 +34,10 @@ public class CodeParser
 			throws IOException, SQLException, InstantiationException, IllegalAccessException, ClassNotFoundException
 	{
 		DBHandler dbh=option.getDBHandler();
+		if(status.equals("D")){
+			dbh.register(hash,sourceFileName,status);
+			return;
+		}
 		ASTParser parser=ASTParser.newParser(AST.JLS8);
 		@SuppressWarnings("unchecked")
 		Map<String, String> compilerOptions = JavaCore.getOptions();
@@ -46,77 +50,60 @@ public class CodeParser
 		for(Iterator<IProblem> iter=Arrays.asList(ip).iterator();iter.hasNext();){
 			IProblem tmp=iter.next();
 			if(tmp.isError()){
-				printProblem((CategorizedProblem)tmp);
-				System.out.println(tmp.getMessage());
-				System.out.println(hash+" "+sourceFileName+" でエラーを検知"+" "+unit.getLineNumber(tmp.getSourceStart())+" "+unit.getLineNumber(tmp.getSourceEnd()));
+				//ロギング
 				errorExist=true;
 			}
 			if(tmp.isWarning()){
-				printProblem((CategorizedProblem)tmp);
-				System.out.println(tmp.getMessage());
-				System.out.println(hash+" "+sourceFileName+" で警告を検知"+" "+unit.getLineNumber(tmp.getSourceStart())+" "+unit.getLineNumber(tmp.getSourceEnd()));
+				//ロギング
 			}
 		}
-		if(errorExist&&option.getIgnoreErr()){
+		if(errorExist){
+			if(!option.getIgnoreErr()){
+				dbh.register(hash,sourceFileName,"E");
+			}
 			return;
 		}
 		dbh.register(hash,sourceFileName,status);
 		unit.accept(new CodeVisitor(option.getOutfile(),option.getVisible(),dbh));
 	}
 
-	public static void printProblem(CategorizedProblem cp)
+	public static String getProblemCategory(CategorizedProblem cp)
 	{
 		switch(cp.getCategoryID()){
 		case CategorizedProblem.CAT_BUILDPATH:
-			System.out.println("CAT_BUILDPATH");
-			break;
+			return "CAT_BUILDPATH";
 		case CategorizedProblem.CAT_CODE_STYLE:
-			System.out.println("CAT_CODE_STYLE");
-			break;
+			return "CAT_CODE_STYLE";
 		case CategorizedProblem.CAT_DEPRECATION:
-			System.out.println("CAT_DEPRECATION");
-			break;
+			return "CAT_DEPRECATION";
 		case CategorizedProblem.CAT_IMPORT:
-			System.out.println("CAT_IMPORT");
-			break;
+			return "CAT_IMPORT";
 		case CategorizedProblem.CAT_INTERNAL:
-			System.out.println("CAT_INTERNAL");
-			break;
+			return "CAT_INTERNAL";
 		case CategorizedProblem.CAT_JAVADOC:
-			System.out.println("CAT_JAVADOC");
-			break;
+			return "CAT_JAVADOC";
 		case CategorizedProblem.CAT_MEMBER:
-			System.out.println("CAT_MEMBER");
-			break;
+			return "CAT_MEMBER";
 		case CategorizedProblem.CAT_NAME_SHADOWING_CONFLICT:
-			System.out.println("CAT_NAME_SHADOWING_CONFLICT");
-			break;
+			return "CAT_NAME_SHADOWING_CONFLICT";
 		case CategorizedProblem.CAT_NLS:
-			System.out.println("CAT_NLS");
-			break;
+			return "CAT_NLS";
 		case CategorizedProblem.CAT_POTENTIAL_PROGRAMMING_PROBLEM:
-			System.out.println("CAT_POTENTIAL_PROGRAMMING_PROBLEM");
-			break;
+			return "CAT_POTENTIAL_PROGRAMMING_PROBLEM";
 		case CategorizedProblem.CAT_RESTRICTION:
-			System.out.println("CAT_RESTRICTION");
-			break;
+			return "CAT_RESTRICTION";
 		case CategorizedProblem.CAT_SYNTAX:
-			System.out.println("CAT_SYNTAX");
-			break;
+			return "CAT_SYNTAX";
 		case CategorizedProblem.CAT_TYPE:
-			System.out.println("CAT_TYPE");
-			break;
+			return "CAT_TYPE";
 		case CategorizedProblem.CAT_UNCHECKED_RAW:
-			System.out.println("CAT_UNCHECKED_RAW");
-			break;
+			return "CAT_UNCHECKED_RAW";
 		case CategorizedProblem.CAT_UNNECESSARY_CODE:
-			System.out.println("CAT_UNNECESSARY_CODE");
-			break;
+			return "CAT_UNNECESSARY_CODE";
 		case CategorizedProblem.CAT_UNSPECIFIED:
-			System.out.println("CAT_UNSPECIFIED");
-			break;
+			return "CAT_UNSPECIFIED";
 		default:
-			System.out.println("UNKNOWN");	
+			return "UNKNOWN";	
 		}
 	}
 

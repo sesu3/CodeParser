@@ -84,7 +84,11 @@ class ParseableUnitForGit extends ParseableUnit
 			}
 			String[] tmp=line.split("\t");
 			if(isJavaFile(tmp[1])){
-				CodeParser.parsing(getJavaFileFromGit(option.getPath(),hash,tmp[1]),tmp[1],hash,tmp[0],option);
+				if(tmp[0].equals("D")){
+					CodeParser.parsing("".toCharArray(),tmp[1],hash,tmp[0],option);
+				}else{
+					CodeParser.parsing(getJavaFileFromGit(option.getPath(),hash,tmp[1]),tmp[1],hash,tmp[0],option);
+				}
 			}
 		}
 		proc.waitFor();
