@@ -20,11 +20,8 @@ public class ParseExecutable
 				if(input.equals("-outfile")){
 					option.setOutfile(iter.next());
 				}
-				if(input.equals("-visible")){
-					option.setVisible(true);
-				}
 				if(input.equals("-invisible")){
-					option.setVisible(false);
+					option.setInvisible();
 				}
 				if(input.equals("-ignore-err")){
 					option.setIgnoreErr();

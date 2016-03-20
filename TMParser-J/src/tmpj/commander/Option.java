@@ -29,9 +29,9 @@ public class Option
 	{
 		this.outfile=outfile;
 	}
-	public void setVisible(boolean visible)
+	public void setInvisible()
 	{
-		this.visible=visible;
+		this.visible=false;
 	}
 	public void setIgnoreErr()
 	{
