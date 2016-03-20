@@ -224,78 +224,72 @@ I recommend that you indicate the path with full path.
   </tbody>
 </table>
 
-###出力
-一行目は解析対象の種類を表しています．
-<table>
-  <tr><td>class</td><td>クラス</td></tr>
-  <tr><td>interface</td><td>インターフェース</td></tr>
-  <tr><td>method</td><td>メソッド</td></tr>
-  <tr><td>constructor</td><td>コンストラクタ</td></tr>
-</table>
-各項目の二行目以降の意味は以下の通りです．
+###Output
+the first line of each item means kind of target.
+and then, the second line or later meanings are below.
 <table>
   <thead>
     <tr>
-      <th>項目</th>
-      <th>表示対象</th>
-      <th>意味</th>
+      <th>category</th>
+      <th>what type does it have</th>
+      <th>mean</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>name:</td>
       <td>class,interface,method,constructor</td>
-      <td>識別子．classとinterfaceはFQCN</td>
+      <td>identifiers．class and interface are printed out with FQCN</td>
     </tr>
     <tr>
       <td>modifier:</td>
       <td>class,interface,method,constructor</td>
-      <td>修飾子．カンマ区切りで出力</td>
+      <td>modifiers．a comma-delimited.</td>
     </tr>
     <tr>
       <td>range:</td>
       <td>class,interface,method,constructor</td>
-      <td>定義範囲．開始行と終了行をカンマ区切りで表示</td>
+      <td>its declaration range．a comma-delimited.</td>
     </tr>
     <tr>
       <td>super:</td>
       <td>class,interface</td>
-      <td>スーパークラス名</td>
+      <td>super class name.</td>
     </tr>
     <tr>
       <td>implements:</td>
       <td>class,interface</td>
-      <td>実装しているインターフェース．カンマ区切りで表示</td>
+      <td>interfaces what implemented the class．a comma-delimited.</td>
     </tr>
     <tr>
       <td>field:</td>
       <td>class,interface</td>
-      <td>フィールド．カンマ区切りで出力．修飾子と型，名前をまとめて表示する．</td>
+      <td>fields. a comma-delimited. printed with modifiers, type and name.</td>
     </tr>
     <tr>
       <td>returnType:</td>
       <td>method,constructor</td>
-      <td>メソッドの戻り値の型．コンストラクタはnullと表示．</td>
+      <td>type of method's return value. if it is constructor, print null.</td>
     </tr>
     <tr>
       <td>arguments:</td>
       <td>method,constructor</td>
-      <td>引数．カンマ区切りで出力</td>
+      <td>arguments what declared in the method． a comma-delimited.</td>
     </tr>
     <tr>
       <td>throws:</td>
       <td>method,constructor</td>
-      <td>スローする例外．カンマ区切りで出力</td>
+      <td>exceptions what thrown by the method. a comma-delimited.</td>
     </tr>
     <tr>
       <td>location:</td>
       <td>method,constructor</td>
-      <td>定義されているクラスのFQCN．</td>
+      <td>location of the method. it use FQCN expression.</td>
     </tr>
     <tr>
       <td>localVariable:</td>
       <td>method,constructor</td>
-      <td>このメソッド，コンストラクタと同一のスコープを持つ変数．カンマ区切りで表示．型と名前をまとめて表示．</td>
+      <td>local variables(it is limited to those with the same scope). a comma-delimited. printed with type and name.</td>
     </tr>
   </tbody>
 </table>
