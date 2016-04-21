@@ -36,7 +36,7 @@ public class ParserDBHandler implements DBHandler
 
 	public boolean createDatabase(String dbName) throws SQLException
 	{
-		if(!dbName.matches("[a-zA-Z][a-zA-Z_]*")){
+		if(!dbName.matches("[a-zA-Z][a-zA-Z0-9_]*")){
 			return false;
 		}
 		Statement stmt = connection.createStatement();
