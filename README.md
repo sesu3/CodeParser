@@ -112,11 +112,6 @@ mysql-connector-java-*.jarはmysqlのサイトで入手します．その他はE
       <td>スーパークラス名</td>
     </tr>
     <tr>
-      <td>implements:</td>
-      <td>class,interface</td>
-      <td>実装しているインターフェース．カンマ区切りで表示</td>
-    </tr>
-    <tr>
       <td>field:</td>
       <td>class,interface</td>
       <td>フィールド．カンマ区切りで出力．修飾子と型，名前をまとめて表示する．</td>
@@ -130,21 +125,6 @@ mysql-connector-java-*.jarはmysqlのサイトで入手します．その他はE
       <td>arguments:</td>
       <td>method,constructor</td>
       <td>引数．カンマ区切りで出力</td>
-    </tr>
-    <tr>
-      <td>throws:</td>
-      <td>method,constructor</td>
-      <td>スローする例外．カンマ区切りで出力</td>
-    </tr>
-    <tr>
-      <td>location:</td>
-      <td>method,constructor</td>
-      <td>定義されているクラスのFQCN．</td>
-    </tr>
-    <tr>
-      <td>localVariable:</td>
-      <td>method,constructor</td>
-      <td>このメソッド，コンストラクタと同一のスコープを持つ変数．カンマ区切りで表示．型と名前をまとめて表示．</td>
     </tr>
   </tbody>
 </table>
@@ -257,11 +237,6 @@ and then, the second line or later meanings are below.
       <td>super class name.</td>
     </tr>
     <tr>
-      <td>implements:</td>
-      <td>class,interface</td>
-      <td>interfaces what implemented the class．a comma-delimited.</td>
-    </tr>
-    <tr>
       <td>field:</td>
       <td>class,interface</td>
       <td>fields. a comma-delimited. printed with modifiers, type and name.</td>
@@ -270,26 +245,6 @@ and then, the second line or later meanings are below.
       <td>returnType:</td>
       <td>method,constructor</td>
       <td>type of method's return value. if it is constructor, print null.</td>
-    </tr>
-    <tr>
-      <td>arguments:</td>
-      <td>method,constructor</td>
-      <td>arguments what declared in the method． a comma-delimited.</td>
-    </tr>
-    <tr>
-      <td>throws:</td>
-      <td>method,constructor</td>
-      <td>exceptions what thrown by the method. a comma-delimited.</td>
-    </tr>
-    <tr>
-      <td>location:</td>
-      <td>method,constructor</td>
-      <td>location of the method. it use FQCN expression.</td>
-    </tr>
-    <tr>
-      <td>localVariable:</td>
-      <td>method,constructor</td>
-      <td>local variables(it is limited to those with the same scope). a comma-delimited. printed with type and name.</td>
     </tr>
   </tbody>
 </table>
