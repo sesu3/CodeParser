@@ -9,6 +9,6 @@ import tmpj.core.object.Revision;
 public interface DBHandler
 {
 	public void register(Revision rev) throws SQLException;
-	public void register(String hash,String filePath,String status) throws SQLException;
+	public void register(String filePath,String status) throws SQLException;
 	public void register(TypeDeclaration node) throws SQLException;
 }

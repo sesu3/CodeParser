@@ -35,7 +35,7 @@ public class CodeParser
 	{
 		DBHandler dbh=option.getDBHandler();
 		if(status.equals("D")){
-			dbh.register(hash,sourceFileName,status);
+			dbh.register(sourceFileName,status);
 			return;
 		}
 		ASTParser parser=ASTParser.newParser(AST.JLS8);
@@ -59,11 +59,11 @@ public class CodeParser
 		}
 		if(errorExist){
 			if(!option.getIgnoreErr()){
-				dbh.register(hash,sourceFileName,"E");
+				dbh.register(sourceFileName,"E");
 			}
 			return;
 		}
-		dbh.register(hash,sourceFileName,status);
+		dbh.register(sourceFileName,status);
 		unit.accept(new CodeVisitor(option.getOutfile(),option.getVisible(),dbh));
 	}
 

@@ -6,24 +6,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
-import org.eclipse.jdt.core.dom.Assignment;
-import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.BodyDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.Expression;
-import org.eclipse.jdt.core.dom.ExpressionStatement;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.Javadoc;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
 import org.eclipse.jdt.core.dom.PackageDeclaration;
-import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-import org.eclipse.jdt.core.dom.VariableDeclarationExpression;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
-import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
-
 import tmpj.core.object.Variable;
 
 public class ASTTool
@@ -59,6 +51,10 @@ public class ASTTool
 			String tmpName=getFullyQualifiedClassName(node.getParent());
 			TypeDeclaration td=(TypeDeclaration)node;
 			return tmpName+"."+td.getName().getFullyQualifiedName();
+		}else if(node.getNodeType()==ASTNode.METHOD_DECLARATION){
+			String tmpName=getFullyQualifiedClassName(node.getParent());
+			MethodDeclaration td=(MethodDeclaration)node;
+			return tmpName+"#"+td.getName().getFullyQualifiedName();
 		}else{
 			return getFullyQualifiedClassName(node.getParent());
 		}
@@ -95,44 +91,6 @@ public class ASTTool
 		return list;
 	}
 	
-	public static List<Variable> getLocalVariables(MethodDeclaration node)
-	{
-		List<Variable> list=new LinkedList<Variable>();
-		Block mb=node.getBody();
-		if(mb!=null){
-			for(Iterator<Statement> iter=mb.statements().iterator();iter.hasNext();){
-				Statement st=iter.next();
-				if(st instanceof ExpressionStatement){
-					Expression exp=((ExpressionStatement) st).getExpression();
-					if(exp instanceof Assignment){
-						Expression leftExp=((Assignment) exp).getLeftHandSide();
-						if(leftExp instanceof VariableDeclarationExpression){
-							VariableDeclarationExpression vde=(VariableDeclarationExpression)leftExp;
-							List<VariableDeclarationFragment> vdfList=vde.fragments();
-							list.add(new Variable(vde.getType().toString(),vdfList.get(0).getName().toString()));
-						}
-					}
-					if(exp instanceof VariableDeclarationExpression){
-						VariableDeclarationExpression vde=(VariableDeclarationExpression)exp;
-						String variableType=vde.getType().toString();
-						for(Iterator<VariableDeclarationFragment> iter2=vde.fragments().iterator();iter2.hasNext();){
-							VariableDeclarationFragment vdf=iter2.next();
-							list.add(new Variable(variableType,vdf.getName().toString()));
-						}
-					}
-				}
-				if(st instanceof VariableDeclarationStatement){
-					VariableDeclarationStatement vds=(VariableDeclarationStatement)st;
-					String variableType=vds.getType().toString();
-					for(Iterator<VariableDeclarationFragment> iter2=vds.fragments().iterator();iter2.hasNext();){
-						VariableDeclarationFragment vdf=iter2.next();
-						list.add(new Variable(variableType,vdf.getName().toString()));
-					}
-				}
-			}
-		}
-		return list;
-	}
 	
 	public static List<String> getModifiers(BodyDeclaration node)
 	{

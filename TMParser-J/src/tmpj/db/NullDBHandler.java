@@ -16,7 +16,7 @@ public class NullDBHandler implements DBHandler
 	}
 	
 	@Override
-	public void register(String hash, String filePath, String status) throws SQLException
+	public void register(String filePath, String status) throws SQLException
 	{
 		// do nothing
 	}
