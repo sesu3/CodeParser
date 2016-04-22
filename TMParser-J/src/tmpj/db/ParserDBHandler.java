@@ -210,13 +210,13 @@ public class ParserDBHandler implements DBHandler
 	private static final String CREATE_TABLE_FIELD=
 			"create table field("+
 					"id integer primary key auto_increment,fileId integer not null,typeId integer not null,"+
-					"type text not null,name text not null,"+
+					"type text not null,FQFN text not null,"+
 					"access varchar(16) not null,isFinal boolean not null,"+
 					"isTransient boolean not null,isVolatile boolean not null)";
 	private static final String CREATE_TABLE_METHOD=
 			"create table method("+
 					"id integer primary key auto_increment,fileId integer not null,typeId integer not null,"+
-					"name text not null,isConstructor boolean not null,returnType text not null,"+
+					"FQMN text not null,isConstructor boolean not null,returnType text not null,"+
 					"access varchar(16) not null,isAbstract boolean not null,"+
 					"isStatic boolean not null,isFinal boolean not null,isSynchronized boolean not null,"+
 					"isNative boolean not null,isStrictfp boolean not null,"+
@@ -237,10 +237,10 @@ public class ParserDBHandler implements DBHandler
 			") values (?,?,?,?,?,?,?,?,?,?,?)";
 
 	private static final String SQL_INSERT_FIELD=
-			"insert into field (fileId,typeId,type,name,access,isFinal,isTransient,isVolatile) values (?,?,?,?,?,?,?,?)";
+			"insert into field (fileId,typeId,type,FQFN,access,isFinal,isTransient,isVolatile) values (?,?,?,?,?,?,?,?)";
 	private static final String SQL_INSERT_METHOD=
 			"insert into method ("+
-					"fileId,typeId,name,isConstructor,returnType,"+
+					"fileId,typeId,FQMN,isConstructor,returnType,"+
 					"access,isAbstract,isStatic,isFinal,isSynchronized,isNative,isStrictfp,startLine,endLine"+
 			") values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String SQL_INSERT_ARGUMENT="insert into argument (methodId,type,name) values (?,?,?)";

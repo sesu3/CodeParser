@@ -53,9 +53,12 @@ public class ASTTool
 			return tmpName+"."+td.getName().getFullyQualifiedName();
 		}else if(node.getNodeType()==ASTNode.METHOD_DECLARATION){
 			String tmpName=getFullyQualifiedClassName(node.getParent());
-			MethodDeclaration td=(MethodDeclaration)node;
-			return tmpName+"#"+td.getName().getFullyQualifiedName();
-		}else{
+			MethodDeclaration md=(MethodDeclaration)node;
+			return tmpName+"#"+md.getName().getFullyQualifiedName();
+		}else if(node.getNodeType()==ASTNode.FIELD_DECLARATION){
+			String tmpName=getFullyQualifiedClassName(node.getParent());
+			return tmpName+"#";
+		}		else{
 			return getFullyQualifiedClassName(node.getParent());
 		}
 	}
@@ -83,9 +86,10 @@ public class ASTTool
 			FieldDeclaration fd=iter.next();
 			String variableType=fd.getType().toString();
 			int modifiers=fd.getModifiers();
+			String location=ASTTool.getFullyQualifiedClassName(fd);
 			for(Iterator<VariableDeclarationFragment> iter2=fd.fragments().iterator();iter2.hasNext();){
 				VariableDeclarationFragment vdf=iter2.next();
-				list.add(new Variable(modifiers,variableType,vdf.getName().toString()));
+				list.add(new Variable(modifiers,variableType,location+vdf.getName().toString()));
 			}
 		}
 		return list;
