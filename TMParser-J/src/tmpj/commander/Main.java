@@ -12,6 +12,7 @@ public class Main
 		try {
 			if(args.length==0){
 				System.out.println("TYPE THE ESSENTIAL OPTIONS.");
+				System.out.println("TMParser-J "+VERSION_INFO);
 				System.exit(0);
 			}
 			ParseExecutable pe=new ParseExecutable();
@@ -21,5 +22,7 @@ public class Main
 			e.printStackTrace();
 		}
 	}
+	
+	private static final String VERSION_INFO="v2.0";
 	
 }
