@@ -94,7 +94,7 @@ mysql-connector-java-*.jarはmysqlのサイトで入手します．その他はE
     <tr>
       <td>name:</td>
       <td>class,interface,method,constructor</td>
-      <td>識別子．classとinterfaceはFQCN</td>
+      <td>識別子．classとinterfaceはFQCN．methodとfieldも完全修飾名で収集</td>
     </tr>
     <tr>
       <td>modifier:</td>
@@ -153,7 +153,7 @@ You can get mysql-connector-java-*.jar from mysql cite．Other jar files are con
 
 
 ##Usage
-`java -jar TMParser-J.jar [オプション] (ファイルパス|ディレクトリパス|リポジトリパス)`  
+`java -jar TMParser-J.jar [options] (file path|directory path|repository path)`  
 I recommend that you indicate the path with full path.
 
 ###Options
@@ -219,7 +219,7 @@ and then, the second line or later meanings are below.
     <tr>
       <td>name:</td>
       <td>class,interface,method,constructor</td>
-      <td>identifiers．class and interface are printed out with FQCN</td>
+      <td>identifiers．class and interface are printed out with FQCN. method and constructor were also printed by fully qualified name </td>
     </tr>
     <tr>
       <td>modifier:</td>
